@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Mission High School</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated background elements */
+        body::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="10" cy="60" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="90" cy="40" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .signin-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo-section {
+            margin-bottom: 30px;
+        }
+
+        .logo-section .school-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #0e3970, #75e5e9);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            box-shadow: 0 10px 20px rgba(14, 57, 112, 0.3);
+        }
+
+        .signin-container h1 {
+            color: #0e3970;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .signin-container .subtitle {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-container {
+            position: relative;
+        }
+
+        .input-container i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #0e3970;
+            font-size: 16px;
+        }
+
+        .signin-container input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .signin-container input:focus {
+            outline: none;
+            border-color: #0e3970;
+            box-shadow: 0 0 0 3px rgba(14, 57, 112, 0.1);
+            background: white;
+        }
+
+        .signin-container input::placeholder {
+            color: #999;
+            font-weight: 400;
+        }
+
+        .signin-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #0e3970, #75e5e9);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .signin-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .signin-btn:hover::before {
+            left: 100%;
+        }
+
+        .signin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(14, 57, 112, 0.3);
+        }
+
+        .signin-btn:active {
+            transform: translateY(0);
+        }
+
+        .signin-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .selection-container {
+            display: none !important;
+            margin-top: 30px;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .selection-container.show {
+            display: block !important;
+        }
+
+        /* Ensure form is visible by default */
+        #signinForm {
+            display: block !important;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .selection-container h3 {
+            color: #0e3970;
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .admin-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .option {
+            padding: 20px;
+            background: linear-gradient(135deg, #0e3970, #75e5e9);
+            color: white;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .option:hover::before {
+            opacity: 1;
+        }
+
+        .option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(14, 57, 112, 0.3);
+        }
+
+        .option i {
+            font-size: 24px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .option span {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 14px;
+            border-left: 4px solid #c33;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .loading {
+            display: none;
+            margin-top: 15px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #0e3970;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 480px) {
+            .signin-container {
+                margin: 20px;
+                padding: 30px 20px;
+            }
+
+            .admin-options {
+                grid-template-columns: 1fr;
+            }
+
+            .signin-container h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="signin-container">
+        <!-- Logo Section -->
+        <div class="logo-section">
+            <div class="school-logo">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h1>Admin Portal</h1>
+            <p class="subtitle">Model Mission High School</p>
+        </div>
+
+        <!-- Sign In Form -->
+        <form id="signinForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <div class="input-container">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" placeholder="Enter your username" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-container">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+            </div>
+
+            <button type="submit" class="signin-btn" id="signinBtn">
+                <span id="btnText">Sign In</span>
+            </button>
+
+            <!-- Loading Spinner -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+            </div>
+
+            <!-- Error Message -->
+            <div class="error-message" id="errorMessage">
+                Invalid credentials. Please try again.
+            </div>
+        </form>
+
+        <!-- Admin Options (Hidden until login is successful) -->
+        <div class="selection-container" id="selectionContainer">
+            <h3>Choose Admin Section</h3>
+            <div class="admin-options">
+                <div class="option" onclick="redirectTo('activities')">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Activities</span>
+                </div>
+                <div class="option" onclick="redirectTo('gallery')">
+                    <i class="fas fa-images"></i>
+                    <span>Gallery</span>
+                </div>
+                <div class="option" onclick="redirectTo('birthday')">
+                    <i class="fas fa-birthday-cake"></i>
+                    <span>Birthdays</span>
+                </div>
+                <div class="option" onclick="redirectTo('planner')">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Planner</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const signinForm = document.getElementById('signinForm');
+        const signinBtn = document.getElementById('signinBtn');
+        const btnText = document.getElementById('btnText');
+        const loading = document.getElementById('loading');
+        const errorMessage = document.getElementById('errorMessage');
+        const selectionContainer = document.getElementById('selectionContainer');
+
+        // Form submission handler
+        signinForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await signIn();
+        });
+
+        // Enhanced sign-in function
+        async function signIn() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Validate inputs
+            if (!username.trim() || !password.trim()) {
+                showError('Please fill in all fields');
+                return;
+            }
+
+            // Show loading state
+            setLoadingState(true);
+            hideError();
+
+            try {
+                const response = await fetch('/signin', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Store token
+                    localStorage.setItem('adminToken', data.token);
+                    
+                    // Show success animation
+                    signinBtn.innerHTML = '<i class="fas fa-check"></i> Success!';
+                    signinBtn.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+                    
+                    // Hide form and show admin options after a short delay
+                    setTimeout(() => {
+                        document.querySelector('form').style.display = 'none';
+                        document.querySelector('.selection-container').classList.add('show');
+                    }, 1000);
+                } else {
+                    showError('Invalid credentials. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Connection error. Please try again.');
+            } finally {
+                setLoadingState(false);
+            }
+        }
+
+        // Set loading state
+        function setLoadingState(isLoading) {
+            if (isLoading) {
+                signinBtn.disabled = true;
+                btnText.textContent = 'Signing In...';
+                loading.classList.add('show');
+            } else {
+                signinBtn.disabled = false;
+                btnText.textContent = 'Sign In';
+                loading.classList.remove('show');
+            }
+        }
+
+        // Show error message
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.add('show');
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                hideError();
+            }, 5000);
+        }
+
+        // Hide error message
+        function hideError() {
+            errorMessage.classList.remove('show');
+        }
+
+        // Redirect to admin pages
+        function redirectTo(page) {
+            const token = localStorage.getItem('adminToken');
+            if (!token) {
+                showError('Session expired. Please sign in again.');
+                return;
+            }
+
+            const pages = {
+                'activities': `/admin-activities?token=${token}`,
+                'gallery': `/admin-gallery?token=${token}`,
+                'birthday': `/admin-birthday?token=${token}`,
+                'planner': `/admin-planner?token=${token}`
+            };
+
+            if (pages[page]) {
+                // Add loading effect to the clicked option
+                event.target.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    window.location.href = pages[page];
+                }, 150);
+            }
+        }
+
+        // Add enter key support for form submission
+        document.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !signinBtn.disabled) {
+                signinForm.dispatchEvent(new Event('submit'));
+            }
+        });
+
+        // Add focus effects to inputs
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', (e) => {
+                e.target.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', (e) => {
+                e.target.parentElement.style.transform = 'scale(1)';
+            });
+        });
+
+        // Always require authentication
+        window.addEventListener('load', () => {
+            // Always show the sign-in form first
+            // Users must authenticate to access admin options
+            const form = document.querySelector('#signinForm');
+            const selectionContainer = document.querySelector('.selection-container');
+            
+            if (form) form.style.display = 'block';
+            if (selectionContainer) {
+                selectionContainer.style.display = 'none';
+                selectionContainer.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
