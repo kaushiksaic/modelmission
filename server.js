@@ -320,7 +320,10 @@ app.post('/add-activity', (req, res) => {
         jwt.verify(token, SECRET_KEY);
         const { title, description, image } = req.body;
         db.query('SELECT * FROM activities WHERE title = ?', [title], (err, results) => {
-            if (err) return res.status(500).json({ success: false, message: 'DB error' });
+            if (err){ 
+                console.log('activities error',err);
+                return res.status(500).json({ success: false, message: `DB error ${err}`,error:err })
+            };
             if (results.length > 0) {
                 return res.status(400).json({ success: false, message: 'Activity with this title already exists' });
             }

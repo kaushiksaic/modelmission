@@ -47,7 +47,7 @@
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 400px;
+            max-width: 600px;
             text-align: center;
             position: relative;
             z-index: 1;
@@ -332,16 +332,15 @@
 <body>
     <div class="signin-container">
         <!-- Logo Section -->
-        <div class="logo-section">
+        <div style="display: flex;justify-content: space-around;">
+         <div>
+         <div class="logo-section">
             <div class="school-logo">
                 <i class="fas fa-graduation-cap"></i>
             </div>
             <h1>Admin Portal</h1>
             <p class="subtitle">Model Mission High School</p>
-        </div>
-
-        <!-- Sign In Form -->
-        <form id="signinForm">
+             <form id="signinForm">
             <div class="form-group">
                 <label for="username">Username</label>
                 <div class="input-container">
@@ -372,9 +371,10 @@
                 Invalid credentials. Please try again.
             </div>
         </form>
-
-        <!-- Admin Options (Hidden until login is successful) -->
-        <div class="selection-container" id="selectionContainer">
+        </div>
+         </div>
+         <div>
+           <div class="selection-container" id="selectionContainer">
             <h3>Choose Admin Section</h3>
             <div class="admin-options">
                 <div class="option" onclick="redirectTo('activities')">
@@ -395,6 +395,16 @@
                 </div>
             </div>
         </div>
+         </div>
+        </div>
+
+        
+
+        <!-- Sign In Form -->
+       
+
+        <!-- Admin Options (Hidden until login is successful) -->
+        
     </div>
 
     <script>
